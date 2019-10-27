@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK) {
             //set the image captured to our ImageView
             mImageView.setImageURI(image_uri);
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri);
+
         }
     }
 
