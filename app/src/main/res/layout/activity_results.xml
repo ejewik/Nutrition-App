@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Results">
+    <!-- A RecyclerView with some commonly used attributes -->
 
-    <TableLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/result_scroll"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"
@@ -18,33 +20,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow>
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            <TextView
-                android:id="@+id/totalFat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="Total Fat: "
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

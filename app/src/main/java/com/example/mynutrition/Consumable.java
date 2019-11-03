@@ -1,47 +1,34 @@
 package com.example.mynutrition;
+import java.util.*;
 
 public class Consumable {
-    private double servingSize;
-    private double calories;
-    private double fat;
-    private double cholesterol;
-    private double sodium;
-    private double carbs;
-    private double protein;
+    private HashMap nutriInfo;
     private double servings;
 
 
-    public Consumable(double servingSize, double calories, double fat, double cholesterol, double sodium, double carbs, double protein) {
-        this.servingSize = servingSize;
-        this.calories = calories;
-        this.fat = fat;
-        this.cholesterol = cholesterol;
-        this.sodium = sodium;
-        this.carbs = carbs;
-        this.protein = protein;
+    public Consumable(double servings, double calories, double fat, double cholesterol, double sodium, double carbs, double protein) {
+        nutriInfo = new HashMap<String, Double>();
+        nutriInfo.put("Calories", servings*calories);
+        nutriInfo.put("Fat", servings*fat);
+        nutriInfo.put("Cholesterol", servings*cholesterol);
+        nutriInfo.put("Sodium", servings*sodium);
+        nutriInfo.put("Total Carbohydrates", servings*carbs);
+        nutriInfo.put("Protein", servings*protein);
+        this.servings = servings;
+    }
+    public Consumable(double calories, double fat, double cholesterol, double sodium, double carbs, double protein) {
+        nutriInfo = new HashMap<String, Double>();
+        nutriInfo.put("Calories", calories);
+        nutriInfo.put("Fat", fat);
+        nutriInfo.put("Cholesterol", cholesterol);
+        nutriInfo.put("Sodium", sodium);
+        nutriInfo.put("Total Carbohydrates", carbs);
+        nutriInfo.put("Protein", protein);
         this.servings = 1.0;
     }
 
-    public double getServingSize() {
-        return servingSize;
-    }
-    public double getCalories() {
-        return calories;
-    }
-    public double getFat() {
-        return fat;
-    }
-    public double getCholesterol() {
-        return cholesterol;
-    }
-    public double getSodium() {
-        return sodium;
-    }
-    public double getCarbs() {
-        return carbs;
-    }
-    public double getProtein() {
-        return protein;
+    public HashMap getNutriInfo() {
+        return nutriInfo;
     }
     public double getServings() {
         return servings;
@@ -50,15 +37,5 @@ public class Consumable {
         this.servings = servings;
     }
 
-    @Override
-    public String toString() {
-        return "Consumable{" +
-                "servingSize=" + servingSize +
-                ", calories=" + calories +
-                ", fat=" + fat +
-                ", cholesterol=" + cholesterol +
-                ", sodium=" + sodium +
-                ", protein=" + protein +
-                '}';
-    }
+
 }

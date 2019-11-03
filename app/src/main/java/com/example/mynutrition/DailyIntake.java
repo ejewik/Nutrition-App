@@ -1,60 +1,46 @@
 package com.example.mynutrition;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
+
 
 public class DailyIntake {
     private double calorieReq;
-    private double factor;
     private ArrayList<Consumable> consumption;
-    private double totalCalories;
-    private double totalFat;
-    private double totalCholesterol;
-    private double totalSodium;
-    private double totalCarbs;
-    private double totalProtein;
+    private Map daily;
 
-
-    {
-        factor = calorieReq / 2000;
+    public DailyIntake(double calorieReq) {
+        daily = new HashMap<String, Double>();
+        daily.put("Calories", 0);
+        daily.put("Fat", 0);
+        daily.put("Cholesterol", 0);
+        daily.put("Sodium", 0);
+        daily.put("Total Carbohydrates", 0);
+        daily.put("Protein", 0);
+        this.calorieReq = calorieReq;
+        this.consumption = new ArrayList<Consumable>();
     }
-
 
     public double getCalorieReq () {
         return calorieReq;
     }
-    public double getTotalCalories () {
-        return totalCalories;
+    public ArrayList<Consumable> getConsumption() {
+        return consumption;
     }
-    public double getTotalFat () {
-        return totalFat;
-    }
-    public double getTotalCholesterol () {
-        return totalCholesterol;
-    }
-    public double getTotalSodium () {
-        return totalSodium;
-    }
-    public double getTotalCarbs () {
-        return totalCarbs;
-    }
-    public double getTotalProtein () {
-        return totalProtein;
-    }
-
-    public DailyIntake(double calorieReq) {
-        this.calorieReq = calorieReq;
-        consumption = new ArrayList<Consumable>();
+    public Map getDaily() {
+        return daily;
     }
 
     public void addItem(Consumable c) {
         consumption.add(c);
-        totalCalories+=c.getCalories()*c.getServingSize();
-        totalFat+=c.getFat()*c.getServingSize();
-        totalCholesterol+=c.getCholesterol()*c.getServingSize();
-        totalSodium+=c.getSodium()*c.getServingSize();
-        totalCarbs+=c.getCarbs()*c.getServingSize();
-        totalProtein+=c.getProtein()*c.getServingSize();
+        Set<String> keys  = c.getNutriInfo().keySet();
+        for(String key : keys) {
+            if (daily.containsKey(key)) {
+                Double tmp = (Double)
+                daily.put(key, daily.get(key));
+            }
+        }
+
     }
 
 }
