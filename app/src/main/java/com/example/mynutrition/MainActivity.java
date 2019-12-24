@@ -12,11 +12,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.mynutrition.MESSAGE";
@@ -26,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     //Had to auto-complete for android widget?
     Button mCaptureBtn;
     ImageView mImageView;
-
     Uri image_uri;
 
     @Override
@@ -99,18 +109,74 @@ public class MainActivity extends AppCompatActivity {
 
         if(resultCode == RESULT_OK) {
             //set the image captured to our ImageView
-            mImageView.setImageURI(image_uri);
-
+            FirebaseVisionImage image;
+            try {
+                image = FirebaseVisionImage.fromFilePath(this, image_uri);
+                recognizeText(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-
+    private void recognizeText(FirebaseVisionImage image) {
+        //runs the detector
+        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance()
+                .getOnDeviceTextRecognizer();
+        Task<FirebaseVisionText> result =
+                detector.processImage(image)
+                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                            @Override
+                            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                                Bundle extras = processText(firebaseVisionText);
+                                Intent intent = new Intent(MainActivity.this, Confirmation.class);
+                                intent.putExtras(extras);
+                                startActivity(intent);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Intent intent = new Intent(MainActivity.this, Confirmation.class);
+                                startActivity(intent);
+                            }
+                        });
     }
 
+    /**
+     * Processes text inside firebaseVisionText object to be sent to confirmation screen
+     * @param firebaseVisionText contains text to be extracted
+     */
+
+    public Bundle processText(FirebaseVisionText firebaseVisionText) {
+        int n = 0;
+        Bundle extras = new Bundle();
+        for(FirebaseVisionText.TextBlock block : firebaseVisionText.getTextBlocks()) {
+            String text = block.getText();
+            Log.d("blocking", n + ". " + text);
+                if(isInteger(text)) {
+                    extras.putString("CALORIES", text);
+                }
+        }
+
+        extras.putInt("TOTAL_FAT", 2);
+        return extras;
+    }
+
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        for (int i = 0; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MyNutrition</string>
-    <string name="edit_message">Enter a message</string>
+    <string name="edit_message">Name of Food Entry?</string>
     <string name="button_send">Send</string>
 </resources>
