@@ -10,13 +10,6 @@ public class DailyIntake {
     private Map daily;
 
     public DailyIntake(double calorieReq) {
-        daily = new HashMap<String, Double>();
-        daily.put("Calories", 0);
-        daily.put("Fat", 0);
-        daily.put("Cholesterol", 0);
-        daily.put("Sodium", 0);
-        daily.put("Total Carbohydrates", 0);
-        daily.put("Protein", 0);
         this.calorieReq = calorieReq;
         this.consumption = new ArrayList<Consumable>();
     }

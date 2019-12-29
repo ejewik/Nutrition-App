@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         extras.putInt("TOTAL_FAT", 2);
         return extras;
+
     }
 
     public static boolean isInteger(String str) {

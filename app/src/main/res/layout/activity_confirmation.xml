@@ -17,13 +17,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:id="@+id/inputFields"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="171dp"
+        android:onClick="submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodname">
 
+        <!--        Servings-->
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Servings" />
+
+            <EditText
+                android:id="@+id/servingsDisplay"
+                style="@style/input_box"
+                android:text="1" />
+        </TableRow>
+
+        <!--        Calories-->
         <TableRow>
 
             <TextView
@@ -34,11 +54,10 @@
 
             <EditText
                 android:id="@+id/calorieDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px"/>
+                style="@style/input_box" />
         </TableRow>
 
+        <!--        Fat-->
         <TableRow>
 
             <TextView
@@ -49,11 +68,10 @@
 
             <EditText
                 android:id="@+id/fatDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px" />
+                style="@style/input_box" />
         </TableRow>
 
+        <!--        Cholesterol-->
         <TableRow>
 
             <TextView
@@ -64,11 +82,10 @@
 
             <EditText
                 android:id="@+id/cholesterolDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px" />
+                style="@style/input_box" />
         </TableRow>
 
+        <!--        Sodium-->
         <TableRow>
 
             <TextView
@@ -79,11 +96,10 @@
 
             <EditText
                 android:id="@+id/sodiumDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px" />
+                style="@style/input_box" />
         </TableRow>
 
+        <!--        Carbs-->
         <TableRow>
 
             <TextView
@@ -94,11 +110,10 @@
 
             <EditText
                 android:id="@+id/carbsDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px" />
+                style="@style/input_box" />
         </TableRow>
 
+        <!--        Protein-->
         <TableRow>
 
             <TextView
@@ -109,13 +124,22 @@
 
             <EditText
                 android:id="@+id/proteinDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:width="200px" />
+                style="@style/input_box" />
         </TableRow>
 
-
     </TableLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputFields" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

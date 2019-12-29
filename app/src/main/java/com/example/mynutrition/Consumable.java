@@ -1,13 +1,16 @@
 package com.example.mynutrition;
+import java.io.Serializable;
 import java.util.*;
 
-public class Consumable {
+//represents one food item
+public class Consumable implements Serializable {
+    private String name;
     private HashMap nutriInfo;
-    private double servings;
+    private int servings;
 
 
-    public Consumable(double servings, double calories, double fat, double cholesterol, double sodium, double carbs, double protein) {
-        nutriInfo = new HashMap<String, Double>();
+    public Consumable(String name, int servings, int calories, int fat, int cholesterol, int sodium, int carbs, int protein) {
+        nutriInfo = new HashMap<String, Integer>();
         nutriInfo.put("Calories", servings*calories);
         nutriInfo.put("Fat", servings*fat);
         nutriInfo.put("Cholesterol", servings*cholesterol);
@@ -15,27 +18,29 @@ public class Consumable {
         nutriInfo.put("Total Carbohydrates", servings*carbs);
         nutriInfo.put("Protein", servings*protein);
         this.servings = servings;
+        this.name = name;
     }
-    public Consumable(double calories, double fat, double cholesterol, double sodium, double carbs, double protein) {
-        nutriInfo = new HashMap<String, Double>();
-        nutriInfo.put("Calories", calories);
-        nutriInfo.put("Fat", fat);
-        nutriInfo.put("Cholesterol", cholesterol);
-        nutriInfo.put("Sodium", sodium);
-        nutriInfo.put("Total Carbohydrates", carbs);
-        nutriInfo.put("Protein", protein);
-        this.servings = 1.0;
+    public Consumable(String name, int calories, int fat, int cholesterol, int sodium, int carbs, int protein) {
+        this(name,1, calories,fat, cholesterol, sodium, carbs, protein);
+    }
+
+    public Consumable(String name, HashMap nutriInfo, int servings) {
+        this.name = name;
+        this.nutriInfo = nutriInfo;
+        this.servings = servings;
     }
 
     public HashMap getNutriInfo() {
         return nutriInfo;
     }
-    public double getServings() {
+    public int getServings() {
         return servings;
     }
-    public void setServings(double servings) {
+    public void setServings(int servings) {
         this.servings = servings;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
